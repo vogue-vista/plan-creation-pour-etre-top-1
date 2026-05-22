@@ -73,10 +73,10 @@ else:
         
         with col_inputs:
             sujet_page = st.text_input("Sujet ou titre de la page web :", placeholder="Ex: Guide complet pour apprendre la guitare en 30 jours")
-            mots_cles = st.text_input("Mots-clés principaux à inclure (séparés par des virgules) :", placeholder="Ex: cours guitare, débutant, apprendre guitare")
+            mots_cles = st.text_input("Mots-clés principaux à include (séparés par des virgules) :", placeholder="Ex: cours guitare, débutant, apprendre guitare")
             
         with col_options:
-            type_page = st.selectbox("Type de page", ["Article de Blog", "Fiche Producit E-commerce", "Page d'accueil (Homepage)", "Page de Service"])
+            type_page = st.selectbox("Type de page", ["Article de Blog", "Fiche Produit E-commerce", "Page d'accueil (Homepage)", "Page de Service"])
             intention = st.selectbox("Intention de recherche", ["Informative (Apprendre)", "Commerciale (Acheter / Comparer)", "Locale (Trouver un commerce)"])
 
         generer = st.button("🚀 Générer mes Balises SEO", use_container_width=True)
@@ -109,15 +109,14 @@ else:
                         temperature=0.5
                     )
                     
-                    seo_final = reponse.choices.message.content
+                    # LE CORRECTIF DU CROCHET EST BIEN APPLIQUÉ ICI :
+                    seo_final = reponse.choices[0].message.content
                     st.success("✨ Vos balises SEO conformes sont prêtes !")
                     st.markdown(seo_final)
                     
-                    # Zone pour copier-cller facilement
                     st.text_area("Copier les balises :", value=seo_final, height=250)
                     
                     st.write("---")
-                    # En-tête d'explications pédagogiques pour le client
                     st.info("""
                     ### 💡 Comment appliquer ces balises sur votre site ?
                     
