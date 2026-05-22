@@ -76,7 +76,7 @@ else:
             mots_cles = st.text_input("Mots-clés principaux à inclure (séparés par des virgules) :", placeholder="Ex: cours guitare, débutant, apprendre guitare")
             
         with col_options:
-            type_page = st.selectbox("Type de page", ["Article de Blog", "Fiche Produit E-commerce", "Page d'accueil (Homepage)", "Page de Service"])
+            type_page = st.selectbox("Type de page", ["Article de Blog", "Fiche Producit E-commerce", "Page d'accueil (Homepage)", "Page de Service"])
             intention = st.selectbox("Intention de recherche", ["Informative (Apprendre)", "Commerciale (Acheter / Comparer)", "Locale (Trouver un commerce)"])
 
         generer = st.button("🚀 Générer mes Balises SEO", use_container_width=True)
@@ -109,10 +109,27 @@ else:
                         temperature=0.5
                     )
                     
-                    seo_final = reponse.choices[0].message.content
+                    seo_final = reponse.choices.message.content
                     st.success("✨ Vos balises SEO conformes sont prêtes !")
                     st.markdown(seo_final)
-                    st.text_area("Copier les balises :", value=seo_final, height=300)
+                    
+                    # Zone pour copier-cller facilement
+                    st.text_area("Copier les balises :", value=seo_final, height=250)
+                    
+                    st.write("---")
+                    # En-tête d'explications pédagogiques pour le client
+                    st.info("""
+                    ### 💡 Comment appliquer ces balises sur votre site ?
+                    
+                    Ces textes ne s'ajoutent pas automatiquement sur Google. Vous devez les intégrer vous-même sur votre plateforme :
+                    
+                    1. **Copiez** le titre et la description qui vous conviennent le mieux ci-dessus.
+                    2. **Ouvrez les réglages de votre page web** sur votre outil habituel (WordPress, Shopify, Webflow, Wix...).
+                    3. **Collez-les** dans les cases nommées **Meta Title** (ou Titre SEO) et **Meta Description** (ou Description SEO).
+                    4. **Enregistrez la page.**
+                    
+                    *Note : Les robots de Google mettront entre quelques jours et deux semaines à visiter votre site pour enregistrer ces modifications et mettre à jour vos résultats de recherche.*
+                    """)
 
                 except Exception as e:
                     st.error(f"Erreur technique Groq : {str(e)}")
